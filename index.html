@@ -1,143 +1,22 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zodiak Galaxy</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-    }
-    nav {
-      background: rgba(0, 0, 0, 0.7);
-      padding: 1em;
-      text-align: center;
-    }
-    nav a {
-      margin: 0 1em;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    section {
-      padding: 2em;
-    }
-    img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: rgba(0,0,0,0.5);
-      padding: 2em;
-      border-radius: 10px;
-    }
-    input, button {
-      padding: 0.5em;
-      margin: 0.5em 0;
-      width: 100%;
-    }
-  </style>
-  <script>
-    function getZodiacSign(day, month) {
-      const zodiacSigns = [
-        ["Capricorn", [12, 22], [1, 19]],
-        ["Aquarius", [1, 20], [2, 18]],
-        ["Pisces", [2, 19], [3, 20]],
-        ["Aries", [3, 21], [4, 19]],
-        ["Taurus", [4, 20], [5, 20]],
-        ["Gemini", [5, 21], [6, 20]],
-        ["Cancer", [6, 21], [7, 22]],
-        ["Leo", [7, 23], [8, 22]],
-        ["Virgo", [8, 23], [9, 22]],
-        ["Libra", [9, 23], [10, 22]],
-        ["Scorpio", [10, 23], [11, 21]],
-        ["Sagittarius", [11, 22], [12, 21]]
-      ];for (const [sign, [startMonth, startDay], [endMonth, endDay]] of zodiacSigns) {
-    if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
-      return sign;
-    }
-  }
-  return "Unknown";
-}
-
-function getZodiacTraits(sign) {
-  const traits = {
-    Capricorn: "Ambisius, disiplin, dan bertanggung jawab.",
-    Aquarius: "Inovatif, mandiri, dan humanis.",
-    Pisces: "Empatik, kreatif, dan intuitif.",
-    Aries: "Berani, penuh energi, dan impulsif.",
-    Taurus: "Stabil, sabar, dan materialistis.",
-    Gemini: "Komunikatif, cerdas, dan mudah beradaptasi.",
-    Cancer: "Emosional, setia, dan protektif.",
-    Leo: "Karismatik, percaya diri, dan suka memimpin.",
-    Virgo: "Analitis, teliti, dan perfeksionis.",
-    Libra: "Diplomatis, adil, dan menyukai keharmonisan.",
-    Scorpio: "Intens, misterius, dan berkemauan kuat.",
-    Sagittarius: "Optimis, jujur, dan petualang."
-  };
-  return traits[sign] || "Sifat tidak ditemukan.";
-}
-
-function showZodiac() {
-  const day = parseInt(document.getElementById("day").value);
-  const month = parseInt(document.getElementById("month").value);
-  if (isNaN(day) || isNaN(month)) {
-    alert("Masukkan angka yang valid.");
-    return;
-  }
-  const sign = getZodiacSign(day, month);
-  if (sign === "Unknown") {
-    document.getElementById("result").innerText = "Tanggal tidak valid.";
-  } else {
-    const traits = getZodiacTraits(sign);
-    document.getElementById("result").innerHTML = `Zodiak Anda adalah <strong>${sign}</strong>.<br/>Sifat khas: ${traits}`;
-  }
-}
-
-  </script>
+  <title>Home - Zodiak Galaxy</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <nav>
-    <a href="#home">Home</a>
-    <a href="#design">Design Product</a>
-    <a href="#zodiac">Tebak Zodiak</a>
-  </nav>  <section id="home">
-    <div class="container">
-      <h1>Nakeysha Anindya Adi</h1>
-      <p>Sebagai Web Programmer yang bertanggung jawab merancang dan memelihara situs web dan aplikasi web menggunakan HTML, CSS, JavaScript.</p>
-      <p>Dalam mengembangkan permainan ini dibantu oleh Designer Game yaitu Dhaifa, seorang Graphic Designer yang menggabungkan seni dan teknologi untuk menciptakan desain digital.</p>
-      <p>Content Maker: Miqdad Kyan & Bayanaka – menciptakan konten gambar, video, dan audio yang menarik dan relevan.</p>
-      <img src="/mnt/data/file-4wCAXnPxDkRxW6BWfiGTmJ" alt="Foto Grup" />
-    </div>
-  </section>  <section id="design">
-    <div class="container">
-      <h2>Design Product</h2>
-      <p>Website ini bertujuan untuk menebak zodiak berdasarkan tanggal lahir. Pengguna hanya perlu memasukkan tanggal dan bulan lahir mereka.</p>
-      <p><strong>Kelebihan:</strong></p>
-      <ul>
-        <li>Tampilan menarik bertema galaksi</li>
-        <li>Mudah digunakan</li>
-        <li>Memberikan deskripsi sifat dari zodiak</li>
-      </ul>
-      <p><strong>Kekurangan:</strong></p>
-      <ul>
-        <li>Belum mendukung astrologi Tiongkok atau lainnya</li>
-        <li>Hanya deskripsi umum, tidak mendalam</li>
-      </ul>
-    </div>
-  </section>  <section id="zodiac">
-    <div class="container">
-      <h2>Tebak Zodiak Kamu</h2>
-      <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" />
-      <input type="number" id="month" placeholder="Bulan Lahir (1-12)" />
-      <button onclick="showZodiac()">Lihat Zodiak</button>
-      <p id="result"></p>
-    </div>
+    <a href="index.html">Home</a>
+    <a href="produk.html">Design Product</a>
+    <a href="zodiak.html">Tebak Zodiak</a>
+  </nav>
+  <section class="container">
+    <h1>Nakeysha Anindya Adi</h1>
+    <p>Sebagai Web Programmer yang bertanggung jawab merancang dan memelihara situs web dan aplikasi web menggunakan HTML, CSS, JavaScript.</p>
+    <p>Dalam mengembangkan permainan ini dibantu oleh Designer Game yaitu Dhaifa, seorang Graphic Designer yang menggabungkan seni dan teknologi untuk menciptakan desain digital.</p>
+    <p>Content Maker: Miqdad Kyan & Bayanaka – menciptakan konten gambar, video, dan audio yang menarik dan relevan.</p>
+    <img src="group-photo.jpg" alt="Foto Grup">
   </section>
 </body>
 </html>
