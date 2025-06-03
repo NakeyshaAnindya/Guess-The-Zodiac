@@ -1,60 +1,105 @@
-﻿<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0
-  <img src="img/space-nebula-stars-multiple-display-wallpaper-thumb.jpg" width="1600" height="15000" alt="galaxy background" class="group">
-  <title>Tebak Zodiakmu</title>
-  <link rel="stylesheet" href="styles.css" />
-      </head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zodiak Galaxy</title>
+  <style>
+  
+    function getZodiacSign(day, month) {
+      const zodiacSigns = [
+        ["Capricorn", [12, 22], [1, 19]],
+        ["Aquarius", [1, 20], [2, 18]],
+        ["Pisces", [2, 19], [3, 20]],
+        ["Aries", [3, 21], [4, 19]],
+        ["Taurus", [4, 20], [5, 20]],
+        ["Gemini", [5, 21], [6, 20]],
+        ["Cancer", [6, 21], [7, 22]],
+        ["Leo", [7, 23], [8, 22]],
+        ["Virgo", [8, 23], [9, 22]],
+        ["Libra", [9, 23], [10, 22]],
+        ["Scorpio", [10, 23], [11, 21]],
+        ["Sagittarius", [11, 22], [12, 21]]
+      ];for (const [sign, [startMonth, startDay], [endMonth, endDay]] of zodiacSigns) {
+    if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
+      return sign;
+    }
+  }
+  return "Unknown";
+}
+
+function getZodiacTraits(sign) {
+  const traits = {
+    Capricorn: "Ambisius, disiplin, dan bertanggung jawab.",
+    Aquarius: "Inovatif, mandiri, dan humanis.",
+    Pisces: "Empatik, kreatif, dan intuitif.",
+    Aries: "Berani, penuh energi, dan impulsif.",
+    Taurus: "Stabil, sabar, dan materialistis.",
+    Gemini: "Komunikatif, cerdas, dan mudah beradaptasi.",
+    Cancer: "Emosional, setia, dan protektif.",
+    Leo: "Karismatik, percaya diri, dan suka memimpin.",
+    Virgo: "Analitis, teliti, dan perfeksionis.",
+    Libra: "Diplomatis, adil, dan menyukai keharmonisan.",
+    Scorpio: "Intens, misterius, dan berkemauan kuat.",
+    Sagittarius: "Optimis, jujur, dan petualang."
+  };
+  return traits[sign] || "Sifat tidak ditemukan.";
+}
+
+function showZodiac() {
+  const day = parseInt(document.getElementById("day").value);
+  const month = parseInt(document.getElementById("month").value);
+  if (isNaN(day) || isNaN(month)) {
+    alert("Masukkan angka yang valid.");
+    return;
+  }
+  const sign = getZodiacSign(day, month);
+  if (sign === "Unknown") {
+    document.getElementById("result").innerText = "Tanggal tidak valid.";
+  } else {
+    const traits = getZodiacTraits(sign);
+    document.getElementById("result").innerHTML = `Zodiak Anda adalah <strong>${sign}</strong>.<br/>Sifat khas: ${traits}`;
+  }
+}
+
+  </script>
+</head>
 <body>
-    <div class="container glass">
-    <h1>🔮 Zodiak Checker</h1>
-    <p>Pilih tanggal lahirmu:</p>
-
-    <div class="select-group">
-      <select id="day">
-        <option value="">Tanggal</option>
-        <!-- Generate 1-31 -->
-        <script>
-          for (let i = 1; i <= 31; i++) {
-            document.write(`<option value="${i}">${i}</option>`);
-          }
-        </script>
-      </select>
-
-      <select id="month">
-        <option value="">Bulan</option>
-        <option value="1">Januari</option>
-        <option value="2">Februari</option>
-        <option value="3">Maret</option>
-        <option value="4">April</option>
-        <option value="5">Mei</option>
-        <option value="6">Juni</option>
-        <option value="7">Juli</option>
-        <option value="8">Agustus</option>
-        <option value="9">September</option>
-        <option value="10">Oktober</option>
-        <option value="11">November</option>
-        <option value="12">Desember</option>
-      </select>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#design">Design Product</a>
+    <a href="#zodiac">Tebak Zodiak</a>
+  </nav>  <section id="home">
+    <div class="container">
+      <h1>Nakeysha Anindya Adi</h1>
+      <p>Sebagai Web Programmer yang bertanggung jawab merancang dan memelihara situs web dan aplikasi web menggunakan HTML, CSS, JavaScript.</p>
+      <p>Dalam mengembangkan permainan ini dibantu oleh Designer Game yaitu Dhaifa, seorang Graphic Designer yang menggabungkan seni dan teknologi untuk menciptakan desain digital.</p>
+      <p>Content Maker: Miqdad Kyan & Bayanaka – menciptakan konten gambar, video, dan audio yang menarik dan relevan.</p>
+      <img src="/mnt/data/file-4wCAXnPxDkRxW6BWfiGTmJ" alt="Foto Grup" />
     </div>
-
-    <button onclick="checkZodiac()">Lihat Zodiak</button>
-    <div class="result" id="result"></div>
-
-
-
-
-
-
-
-
-
-
-      
-  </div>
-
-  <script src="script.js"></script>
+  </section>  <section id="design">
+    <div class="container">
+      <h2>Design Product</h2>
+      <p>Website ini bertujuan untuk menebak zodiak berdasarkan tanggal lahir. Pengguna hanya perlu memasukkan tanggal dan bulan lahir mereka.</p>
+      <p><strong>Kelebihan:</strong></p>
+      <ul>
+        <li>Tampilan menarik bertema galaksi</li>
+        <li>Mudah digunakan</li>
+        <li>Memberikan deskripsi sifat dari zodiak</li>
+      </ul>
+      <p><strong>Kekurangan:</strong></p>
+      <ul>
+        <li>Belum mendukung astrologi Tiongkok atau lainnya</li>
+        <li>Hanya deskripsi umum, tidak mendalam</li>
+      </ul>
+    </div>
+  </section>  <section id="zodiac">
+    <div class="container">
+      <h2>Tebak Zodiak Kamu</h2>
+      <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" />
+      <input type="number" id="month" placeholder="Bulan Lahir (1-12)" />
+      <button onclick="showZodiac()">Lihat Zodiak</button>
+      <p id="result"></p>
+    </div>
+  </section>
 </body>
 </html>
