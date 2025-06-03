@@ -4,7 +4,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zodiak Galaxy</title>
   <style>
-  
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    nav {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1em;
+      text-align: center;
+    }
+    nav a {
+      margin: 0 1em;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 2em;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: rgba(0,0,0,0.5);
+      padding: 2em;
+      border-radius: 10px;
+    }
+    input, button {
+      padding: 0.5em;
+      margin: 0.5em 0;
+      width: 100%;
+    }
+  </style>
+  <script>
     function getZodiacSign(day, month) {
       const zodiacSigns = [
         ["Capricorn", [12, 22], [1, 19]],
