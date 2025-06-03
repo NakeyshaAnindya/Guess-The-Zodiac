@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0') no-repeat center center fixed;
+  background: url('https://cdn.pixabay.com/photo/2016/11/29/07/16/space-1867616_1280.jpg') no-repeat center center fixed;
   background-size: cover;
   color: white;
 }
@@ -25,6 +25,7 @@ nav a {
   background: rgba(0, 0, 0, 0.6);
   padding: 2em;
   border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 input, button {
@@ -32,4 +33,16 @@ input, button {
   margin: 0.5em 0;
   width: 100%;
   font-size: 1em;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
 }
