@@ -1,11 +1,11 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  color: white;
-
-  background: url('https://cdn.pixabay.com/photo/2016/11/29/07/16/space-1867616_1280.jpg') no-repeat center center fixed;
+  background-image: url('https://images.unsplash.com/photo-1477201502043-b6e0bd504b21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
   background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  color: white;
+  font-family: Arial, sans-serif;
 }
 
 
