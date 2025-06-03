@@ -1,51 +1,24 @@
 body {
   background-image: url('https://images.unsplash.com/photo-1477201502043-b6e0bd504b21?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  color: white;
-  font-family: Arial, sans-serif;
+  background-size: cover;     
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
+  color: white;                
+  font-family: 'Arial', sans-serif;
 }
-
-
-nav {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 1em;
-  text-align: center;
-}
-
-nav a {
-  margin: 0 1em;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.container {
-  max-width: 800px;
-  margin: 2em auto;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 2em;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-input, button {
-  padding: 0.5em;
-  margin: 0.5em 0;
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  font-size: 1em;
-  border: none;
-  border-radius: 5px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); 
+  z-index: -1; 
 }
-
-button {
-  background-color: #4caf50;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
+.content {
+  background-color: rgba(0, 0, 0, 0.5); 
+  padding: 20px;
+  border-radius: 10px;
 }
