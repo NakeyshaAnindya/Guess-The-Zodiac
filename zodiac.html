@@ -7,26 +7,121 @@
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      margin: 0;
+    }
+    nav {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
     }
     nav a {
-      margin-right: 10px;
+      margin-right: 15px;
+      color: white;
+      text-decoration: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
     .container {
-      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input[type="number"] {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      transform: translateY(-2px);
     }
     .zodiac-symbol {
-      font-size: 60px;
-      margin-bottom: 10px;
+      font-size: 80px;
+      text-align: center;
+      margin: 20px 0;
     }
     #result {
-      margin-top: 20px;
-      border: 1px solid #ccc;
+      margin-top: 25px;
+      border: 2px solid #e0e0e0;
+      padding: 20px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      text-align: center;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .zodiac-info h3 {
+      margin: 10px 0;
+      color: #333;
+    }
+    .zodiac-traits {
+      background: rgba(255, 255, 255, 0.7);
       padding: 15px;
       border-radius: 8px;
-      max-width: 400px;
-      background-color: #f9f9f9;
+      margin-top: 15px;
+      font-style: italic;
     }
   </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="product.html">Design Product</a>
+    <a href="zodiac.html">Tebak Zodiak</a>
+  </nav>
+
+  <section class="container">
+    <h2>🌟 Tebak Zodiak Kamu 🌟</h2>
+    <div class="input-group">
+      <input type="number" id="day" placeholder="Tanggal (1-31)" min="1" max="31" />
+      <input type="number" id="month" placeholder="Bulan (1-12)" min="1" max="12" />
+    </div>
+    <button type="button" onclick="showZodiac()">✨ Lihat Zodiak Saya ✨</button>
+    <div id="result">
+      <p>Masukkan tanggal dan bulan lahir Anda untuk mengetahui zodiak!</p>
+    </div>
+  </section>
+
   <script>
     function getZodiacSign(day, month) {
       const zodiacData = [
@@ -43,6 +138,7 @@
         ["Scorpio", "♏", [10, 23], [11, 21]],
         ["Sagittarius", "♐", [11, 22], [12, 21]]
       ];
+      
       for (const [sign, symbol, [startMonth, startDay], [endMonth, endDay]] of zodiacData) {
         if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
           return { sign, symbol };
@@ -53,20 +149,38 @@
 
     function getZodiacTraits(sign) {
       const traits = {
-        Capricorn: "Ambisius, disiplin, dan bertanggung jawab.",
-        Aquarius: "Inovatif, mandiri, dan humanis.",
-        Pisces: "Empatik, kreatif, dan intuitif.",
-        Aries: "Berani, penuh energi, dan impulsif.",
-        Taurus: "Stabil, sabar, dan materialistis.",
-        Gemini: "Komunikatif, cerdas, dan mudah beradaptasi.",
-        Cancer: "Emosional, setia, dan protektif.",
-        Leo: "Karismatik, percaya diri, dan suka memimpin.",
-        Virgo: "Analitis, teliti, dan perfeksionis.",
-        Libra: "Diplomatis, adil, dan menyukai keharmonisan.",
-        Scorpio: "Intens, misterius, dan berkemauan kuat.",
-        Sagittarius: "Optimis, jujur, dan petualang."
+        Capricorn: "Ambisius, disiplin, dan bertanggung jawab. Suka bekerja keras untuk mencapai tujuan.",
+        Aquarius: "Inovatif, mandiri, dan humanis. Pemikir yang unik dan peduli sosial.",
+        Pisces: "Empatik, kreatif, dan intuitif. Sensitif dan memiliki imajinasi tinggi.",
+        Aries: "Berani, penuh energi, dan impulsif. Pemimpin alami yang suka tantangan.",
+        Taurus: "Stabil, sabar, dan materialistis. Menyukai kenyamanan dan keamanan.",
+        Gemini: "Komunikatif, cerdas, dan mudah beradaptasi. Suka belajar hal baru.",
+        Cancer: "Emosional, setia, dan protektif. Sangat peduli dengan keluarga dan rumah.",
+        Leo: "Karismatik, percaya diri, dan suka memimpin. Menyukai perhatian dan apresiasi.",
+        Virgo: "Analitis, teliti, dan perfeksionis. Detail oriented dan praktis.",
+        Libra: "Diplomatis, adil, dan menyukai keharmonisan. Suka keseimbangan dalam hidup.",
+        Scorpio: "Intens, misterius, dan berkemauan kuat. Passionate dan transformatif.",
+        Sagittarius: "Optimis, jujur, dan petualang. Suka kebebasan dan eksplorasi."
       };
       return traits[sign] || "Sifat tidak ditemukan.";
+    }
+
+    function validateDate(day, month) {
+      if (day < 1 || day > 31 || month < 1 || month > 12) {
+        return false;
+      }
+      
+      // Check for months with 30 days
+      if ((month === 4 || month === 6 || month === 9 || month === 11) && day > 30) {
+        return false;
+      }
+      
+      // Check for February
+      if (month === 2 && day > 29) {
+        return false;
+      }
+      
+      return true;
     }
 
     function showZodiac() {
@@ -75,37 +189,59 @@
       const result = document.getElementById("result");
 
       if (isNaN(day) || isNaN(month)) {
-        result.innerHTML = "<strong>Masukkan tanggal dan bulan yang valid!</strong>";
+        result.innerHTML = `
+          <div style="color: #e74c3c;">
+            <strong>🛑 Masukkan tanggal dan bulan yang valid!</strong>
+            <p>Pastikan Anda mengisi kedua kolom dengan angka.</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (!validateDate(day, month)) {
+        result.innerHTML = `
+          <div style="color: #e74c3c;">
+            <strong>🛑 Tanggal tidak valid!</strong>
+            <p>Periksa kembali tanggal dan bulan yang Anda masukkan.</p>
+          </div>
+        `;
         return;
       }
 
       const { sign, symbol } = getZodiacSign(day, month);
+      
       if (sign === "Unknown") {
-        result.innerHTML = "<strong>Tanggal tidak valid atau tidak cocok dengan zodiak manapun.</strong>";
+        result.innerHTML = `
+          <div style="color: #e74c3c;">
+            <strong>🛑 Tanggal tidak cocok dengan zodiak manapun.</strong>
+          </div>
+        `;
       } else {
         const trait = getZodiacTraits(sign);
         result.innerHTML = `
-          <div class="zodiac-symbol">${symbol}</div>
-          <strong>Zodiak Anda: ${sign}</strong><br/>
-          Sifat khas: ${trait}
+          <div class="zodiac-info">
+            <div class="zodiac-symbol">${symbol}</div>
+            <h3>Zodiak Anda: ${sign}</h3>
+            <div class="zodiac-traits">
+              <strong>Sifat Khas:</strong><br/>
+              ${trait}
+            </div>
+          </div>
         `;
       }
     }
-  </script>
-</head>
-<body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="product.html">Design Product</a>
-    <a href="zodiac.html">Tebak Zodiak</a>
-  </nav>
 
-  <section class="container">
-    <h2>Tebak Zodiak Kamu</h2>
-    <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" />
-    <input type="number" id="month" placeholder="Bulan Lahir (1-12)" />
-    <button type="button" onclick="showZodiac()">Lihat Zodiak</button>
-    <div id="result"></div>
-  </section>
+    // Add Enter key support
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('input[type="number"]');
+      inputs.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            showZodiac();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
