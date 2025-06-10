@@ -20,6 +20,7 @@
         ["Scorpio", [10, 23], [11, 21]],
         ["Sagittarius", [11, 22], [12, 21]],
       ];
+      
       for (const [sign, [startMonth, startDay], [endMonth, endDay]] of zodiacSigns) {
         if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
           return sign;
@@ -51,12 +52,12 @@
       const month = parseInt(document.getElementById("month").value);
       const result = document.getElementById("result");
 
-      if (isNaN(day) || isNaN(month)) {
+      if (isNaN(day) || isNaN(month) || day < 1 || day > 31 || month < 1 || month > 12) {
         result.innerHTML = "<strong>Masukkan tanggal dan bulan yang valid!</strong>";
         return;
       }
 
-      const { sign, symbol } = getZodiacSign(day, month);
+      const sign = getZodiacSign(day, month);
       if (sign === "Unknown") {
         result.innerHTML = "<strong>Tanggal tidak valid atau tidak cocok dengan zodiak manapun.</strong>";
       } else {
@@ -80,5 +81,3 @@
   </section>
 </body>
 </html>
-
-
