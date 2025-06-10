@@ -50,13 +50,15 @@
       const day = parseInt(document.getElementById("day").value);
       const month = parseInt(document.getElementById("month").value);
       const result = document.getElementById("result");
+
       if (isNaN(day) || isNaN(month)) {
-        result.textContent = "Masukkan angka yang valid.";
+        result.innerHTML = "<strong>Masukkan tanggal dan bulan yang valid!</strong>";
         return;
       }
-      const sign = getZodiacSign(day, month);
+
+      const { sign, symbol } = getZodiacSign(day, month);
       if (sign === "Unknown") {
-        result.textContent = "Tanggal tidak valid.";
+        result.innerHTML = "<strong>Tanggal tidak valid atau tidak cocok dengan zodiak manapun.</strong>";
       } else {
         result.innerHTML = `Zodiak Anda adalah <strong>${sign}</strong><br/>Sifat khas: ${getZodiacTraits(sign)}`;
       }
@@ -78,3 +80,5 @@
   </section>
 </body>
 </html>
+
+
