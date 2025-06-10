@@ -4,67 +4,7 @@
   <meta charset="UTF-8" />
   <title>Tebak Zodiak</title>
   <link rel="stylesheet" href="style.css" />
-  <script>
-    function getZodiacSign(day, month) {
-      const zodiacSigns = [
-        ["Capricorn", [12, 22], [1, 19]],
-        ["Aquarius", [1, 20], [2, 18]],
-        ["Pisces", [2, 19], [3, 20]],
-        ["Aries", [3, 21], [4, 19]],
-        ["Taurus", [4, 20], [5, 20]],
-        ["Gemini", [5, 21], [6, 20]],
-        ["Cancer", [6, 21], [7, 22]],
-        ["Leo", [7, 23], [8, 22]],
-        ["Virgo", [8, 23], [9, 22]],
-        ["Libra", [9, 23], [10, 22]],
-        ["Scorpio", [10, 23], [11, 21]],
-        ["Sagittarius", [11, 22], [12, 21]],
-      ];
-      
-      for (const [sign, [startMonth, startDay], [endMonth, endDay]] of zodiacSigns) {
-        if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
-          return sign;
-        }
-      }
-      return "Unknown";
-    }
-
-    function getZodiacTraits(sign) {
-      const traits = {
-        Capricorn: "Ambisius, disiplin, dan bertanggung jawab.",
-        Aquarius: "Inovatif, mandiri, dan humanis.",
-        Pisces: "Empatik, kreatif, dan intuitif.",
-        Aries: "Berani, penuh energi, dan impulsif.",
-        Taurus: "Stabil, sabar, dan materialistis.",
-        Gemini: "Komunikatif, cerdas, dan mudah beradaptasi.",
-        Cancer: "Emosional, setia, dan protektif.",
-        Leo: "Karismatik, percaya diri, dan suka memimpin.",
-        Virgo: "Analitis, teliti, dan perfeksionis.",
-        Libra: "Diplomatis, adil, dan menyukai keharmonisan.",
-        Scorpio: "Intens, misterius, dan berkemauan kuat.",
-        Sagittarius: "Optimis, jujur, dan petualang."
-      };
-      return traits[sign] || "Sifat tidak ditemukan.";
-    }
-
-    function showZodiac() {
-      const day = parseInt(document.getElementById("day").value);
-      const month = parseInt(document.getElementById("month").value);
-      const result = document.getElementById("result");
-
-      if (isNaN(day) || isNaN(month) || day < 1 || day > 31 || month < 1 || month > 12) {
-        result.innerHTML = "<strong>Masukkan tanggal dan bulan yang valid!</strong>";
-        return;
-      }
-
-      const sign = getZodiacSign(day, month);
-      if (sign === "Unknown") {
-        result.innerHTML = "<strong>Tanggal tidak valid atau tidak cocok dengan zodiak manapun.</strong>";
-      } else {
-        result.innerHTML = `Zodiak Anda adalah <strong>${sign}</strong><br/>Sifat khas: ${getZodiacTraits(sign)}`;
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </head>
 <body>
   <nav>
@@ -76,7 +16,7 @@
     <h2>Tebak Zodiak Kamu</h2>
     <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" />
     <input type="number" id="month" placeholder="Bulan Lahir (1-12)" />
-    <button onclick="showZodiac()">Lihat Zodiak</button>
+    <button onclick="checkZodiac()">Lihat Zodiak</button>
     <p id="result"></p>
   </section>
 </body>
