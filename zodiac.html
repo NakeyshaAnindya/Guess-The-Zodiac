@@ -47,16 +47,16 @@
     }
 
     function showZodiac() {
-      const day = parseInt(document.getElementById("day").value);
-      const month = parseInt(document.getElementById("month").value);
-      const result = document.getElementById("result");
+      const day = parseInt(document.getElementById(\"day\").value);
+      const month = parseInt(document.getElementById(\"month\").value);
+      const result = document.getElementById(\"result\");
       if (isNaN(day) || isNaN(month)) {
-        result.textContent = "Masukkan angka yang valid.";
+        result.textContent = \"Masukkan angka yang valid.\";
         return;
       }
       const sign = getZodiacSign(day, month);
-      if (sign === "Unknown") {
-        result.textContent = "Tanggal tidak valid.";
+      if (sign === \"Unknown\") {
+        result.textContent = \"Tanggal tidak valid.\";
       } else {
         result.innerHTML = `Zodiak Anda adalah <strong>${sign}</strong><br/>Sifat khas: ${getZodiacTraits(sign)}`;
       }
