@@ -2,22 +2,401 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tebak Zodiak</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #4a4a6a;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .title {
+      color: white;
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .zodiac-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .zodiac-card {
+      background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .zodiac-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .zodiac-card.selected {
+      border-color: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    .zodiac-symbol {
+      font-size: 3rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .zodiac-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .zodiac-dates {
+      font-size: 0.8rem;
+      color: #34495e;
+      font-weight: 600;
+    }
+
+    /* Color schemes for each zodiac */
+    .aries { --card-color-1: #ff6b6b; --card-color-2: #ffa500; }
+    .taurus { --card-color-1: #4ecdc4; --card-color-2: #44a08d; }
+    .gemini { --card-color-1: #45b7d1; --card-color-2: #96c93d; }
+    .cancer { --card-color-1: #f093fb; --card-color-2: #f5576c; }
+    .leo { --card-color-1: #ffd700; --card-color-2: #ffb347; }
+    .virgo { --card-color-1: #c7a17a; --card-color-2: #f4d03f; }
+    .libra { --card-color-1: #ff9a9e; --card-color-2: #fecfef; }
+    .scorpio { --card-color-1: #667eea; --card-color-2: #764ba2; }
+    .sagittarius { --card-color-1: #f093fb; --card-color-2: #f5576c; }
+    .capricornus { --card-color-1: #4facfe; --card-color-2: #00f2fe; }
+    .aquarius { --card-color-1: #43e97b; --card-color-2: #38f9d7; }
+    .pisces { --card-color-1: #fa709a; --card-color-2: #fee140; }
+
+    .input-section {
+      background: rgba(255,255,255,0.1);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .input-group {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .input-group input {
+      padding: 12px 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      width: 180px;
+    }
+
+    .input-group button {
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .input-group button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .result {
+      background: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      margin-top: 25px;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .result h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 2rem;
+    }
+
+    .result p {
+      color: #34495e;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .zodiac-icon {
+      width: 80px;
+      height: 80px;
+      margin-top: 15px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .zodiac-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      
+      .title {
+        font-size: 2rem;
+      }
+      
+      .zodiac-card {
+        padding: 15px;
+      }
+      
+      .zodiac-symbol {
+        font-size: 2.5rem;
+      }
+      
+      .input-group {
+        flex-direction: column;
+      }
+      
+      .input-group input {
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="product.html">Design Product</a>
-    <a href="zodiac.html">Tebak Zodiak</a>
-  </nav>
-  <section class="container">
-    <h2>Tebak Zodiak Kamu</h2>
-    <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" />
-    <input type="number" id="month" placeholder="Bulan Lahir (1-12)" />
-    <button onclick="checkZodiac()">Lihat Zodiak</button>
-    <p id="result"></p>
-  </section>
+  <div class="container">
+    <h1 class="title">What's your sign? Explore the zodiac:</h1>
+    
+    <div class="zodiac-grid">
+      <div class="zodiac-card aries" data-sign="Aries">
+        <div class="zodiac-symbol">♈</div>
+        <div class="zodiac-name">Aries</div>
+        <div class="zodiac-dates">March 21–April 19</div>
+      </div>
+      
+      <div class="zodiac-card taurus" data-sign="Taurus">
+        <div class="zodiac-symbol">♉</div>
+        <div class="zodiac-name">Taurus</div>
+        <div class="zodiac-dates">April 20–May 20</div>
+      </div>
+      
+      <div class="zodiac-card gemini" data-sign="Gemini">
+        <div class="zodiac-symbol">♊</div>
+        <div class="zodiac-name">Gemini</div>
+        <div class="zodiac-dates">May 21–June 21</div>
+      </div>
+      
+      <div class="zodiac-card cancer" data-sign="Cancer">
+        <div class="zodiac-symbol">♋</div>
+        <div class="zodiac-name">Cancer</div>
+        <div class="zodiac-dates">June 22–July 22</div>
+      </div>
+      
+      <div class="zodiac-card leo" data-sign="Leo">
+        <div class="zodiac-symbol">♌</div>
+        <div class="zodiac-name">Leo</div>
+        <div class="zodiac-dates">July 23–August 22</div>
+      </div>
+      
+      <div class="zodiac-card virgo" data-sign="Virgo">
+        <div class="zodiac-symbol">♍</div>
+        <div class="zodiac-name">Virgo</div>
+        <div class="zodiac-dates">August 23–September 22</div>
+      </div>
+      
+      <div class="zodiac-card libra" data-sign="Libra">
+        <div class="zodiac-symbol">♎</div>
+        <div class="zodiac-name">Libra</div>
+        <div class="zodiac-dates">September 23–October 23</div>
+      </div>
+      
+      <div class="zodiac-card scorpio" data-sign="Scorpius">
+        <div class="zodiac-symbol">♏</div>
+        <div class="zodiac-name">Scorpius</div>
+        <div class="zodiac-dates">October 24–November 21</div>
+      </div>
+      
+      <div class="zodiac-card sagittarius" data-sign="Sagittarius">
+        <div class="zodiac-symbol">♐</div>
+        <div class="zodiac-name">Sagittarius</div>
+        <div class="zodiac-dates">November 22–December 21</div>
+      </div>
+      
+      <div class="zodiac-card capricornus" data-sign="Capricornus">
+        <div class="zodiac-symbol">♑</div>
+        <div class="zodiac-name">Capricornus</div>
+        <div class="zodiac-dates">December 22–January 19</div>
+      </div>
+      
+      <div class="zodiac-card aquarius" data-sign="Aquarius">
+        <div class="zodiac-symbol">♒</div>
+        <div class="zodiac-name">Aquarius</div>
+        <div class="zodiac-dates">January 20–February 18</div>
+      </div>
+      
+      <div class="zodiac-card pisces" data-sign="Pisces">
+        <div class="zodiac-symbol">♓</div>
+        <div class="zodiac-name">Pisces</div>
+        <div class="zodiac-dates">February 19–March 20</div>
+      </div>
+    </div>
+
+    <div class="input-section">
+      <div class="input-group">
+        <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" min="1" max="31" />
+        <input type="number" id="month" placeholder="Bulan Lahir (1-12)" min="1" max="12" />
+        <button onclick="checkZodiac()">Lihat Zodiak</button>
+      </div>
+    </div>
+
+    <div class="result" id="result">
+      <p>Masukkan tanggal dan bulan lahir Anda untuk mengetahui zodiak Anda!</p>
+    </div>
+  </div>
+
+  <script>
+    function getZodiacSign(day, month) {
+      const zodiacSigns = [
+        ["Capricornus", [12, 22], [1, 19], "♑"],
+        ["Aquarius", [1, 20], [2, 18], "♒"],
+        ["Pisces", [2, 19], [3, 20], "♓"],
+        ["Aries", [3, 21], [4, 19], "♈"],
+        ["Taurus", [4, 20], [5, 20], "♉"],
+        ["Gemini", [5, 21], [6, 21], "♊"],
+        ["Cancer", [6, 22], [7, 22], "♋"],
+        ["Leo", [7, 23], [8, 22], "♌"],
+        ["Virgo", [8, 23], [9, 22], "♍"],
+        ["Libra", [9, 23], [10, 23], "♎"],
+        ["Scorpius", [10, 24], [11, 21], "♏"],
+        ["Sagittarius", [11, 22], [12, 21], "♐"],
+      ];
+      
+      for (const [sign, [startMonth, startDay], [endMonth, endDay], symbol] of zodiacSigns) {
+        if ((month === startMonth && day >= startDay) || (month === endMonth && day <= endDay)) {
+          return { sign, symbol };
+        }
+      }
+      return { sign: "Unknown", symbol: "" };
+    }
+
+    function getZodiacTraits(sign) {
+      const traits = {
+        "Capricornus": "Ambisius, disiplin, dan bertanggung jawab. Sifat kepemimpinan yang kuat dan tekun dalam mencapai tujuan.",
+        "Aquarius": "Inovatif, mandiri, dan humanis. Pemikir yang original dan peduli terhadap kemajuan sosial.",
+        "Pisces": "Empatik, kreatif, dan intuitif. Memiliki kepekaan tinggi dan kemampuan artistik yang menonjol.",
+        "Aries": "Berani, penuh energi, dan impulsif. Jiwa kepemimpinan yang kuat dan selalu siap menghadapi tantangan.",
+        "Taurus": "Stabil, sabar, dan materialistis. Menyukai kenyamanan dan memiliki dedikasi tinggi terhadap hal yang disukai.",
+        "Gemini": "Komunikatif, cerdas, dan mudah beradaptasi. Memiliki rasa ingin tahu yang besar dan pandai bersosialisasi.",
+        "Cancer": "Emosional, setia, dan protektif. Sangat peduli terhadap keluarga dan memiliki intuisi yang kuat.",
+        "Leo": "Karismatik, percaya diri, dan suka memimpin. Natural leader dengan kepribadian yang menarik dan hangat.",
+        "Virgo": "Analitis, teliti, dan perfeksionis. Memiliki perhatian detail yang tinggi dan selalu berusaha memberikan yang terbaik.",
+        "Libra": "Diplomatis, adil, dan menyukai keharmonisan. Pandai menjaga keseimbangan dan memiliki selera estetika yang baik.",
+        "Scorpius": "Intens, misterius, dan berkemauan kuat. Memiliki determination yang luar biasa dan intuisi yang tajam.",
+        "Sagittarius": "Optimis, jujur, dan petualang. Menyukai kebebasan dan selalu mencari pengalaman baru dalam hidup."
+      };
+      return traits[sign] || "Sifat tidak ditemukan.";
+    }
+
+    function checkZodiac() {
+      const day = parseInt(document.getElementById("day").value);
+      const month = parseInt(document.getElementById("month").value);
+      const result = document.getElementById("result");
+
+      // Clear previous selections
+      document.querySelectorAll('.zodiac-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+
+      if (isNaN(day) || isNaN(month) || day < 1 || day > 31 || month < 1 || month > 12) {
+        result.innerHTML = "<p>🛑 Silakan masukkan tanggal dan bulan yang valid!</p>";
+        return;
+      }
+
+      const { sign, symbol } = getZodiacSign(day, month);
+      const traits = getZodiacTraits(sign);
+
+      if (sign === "Unknown") {
+        result.innerHTML = "<p>🛑 Tanggal tidak valid.</p>";
+      } else {
+        // Highlight the corresponding zodiac card
+        const zodiacCard = document.querySelector(`[data-sign="${sign}"]`);
+        if (zodiacCard) {
+          zodiacCard.classList.add('selected');
+          zodiacCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        result.innerHTML = `
+          <div>
+            <h2>${symbol} ${sign}</h2>
+            <p>${traits}</p>
+          </div>`;
+      }
+    }
+
+    // Add click functionality to zodiac cards
+    document.querySelectorAll('.zodiac-card').forEach(card => {
+      card.addEventListener('click', function() {
+        // Clear previous selections
+        document.querySelectorAll('.zodiac-card').forEach(c => c.classList.remove('selected'));
+        
+        // Select current card
+        this.classList.add('selected');
+        
+        // Show traits
+        const sign = this.getAttribute('data-sign');
+        const symbol = this.querySelector('.zodiac-symbol').textContent;
+        const traits = getZodiacTraits(sign);
+        
+        document.getElementById('result').innerHTML = `
+          <div>
+            <h2>${symbol} ${sign}</h2>
+            <p>${traits}</p>
+          </div>`;
+      });
+    });
+  </script>
 </body>
 </html>
