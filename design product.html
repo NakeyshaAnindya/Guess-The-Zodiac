@@ -1,61 +1,176 @@
-<!DOCTYPE html> 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css" />
-  <title>Guess zodiac</title>
+  <title>Tebak Zodiak NYMY</title>
   <style>
-      body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0') no-repeat center center fixed;
-  background-size: cover;
-  color: white;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-nav {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 1em;
-  text-align: center;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 0;
+      color: white;
+    }
 
-nav a {
-  margin: 0 1em;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.container {
-  max-width: 800px;
-  margin: 2em auto;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 2em;
-  border-radius: 10px;
-}
-
-input, button {
-  padding: 0.5em;
-  margin: 0.5em 0;
-  width: 100%;
-  font-size: 1em;
-}
-
-    h1 {
-      font-family: 'Times New Roman', Times, serif;
-      font-size: 100px;
-      color: black;
+    nav {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 1em;
       text-align: center;
     }
 
+    nav a {
+      margin: 0 1em;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    header h1 {
+      text-align: center;
+      font-size: 60px;
+      color: white;
+      margin: 20px 0 10px;
+    }
+
+    header p {
+      text-align: center;
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
     .container {
-      max-width: 800px;
-      margin: 30px auto;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #4a4a6a;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .title {
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .zodiac-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .zodiac-card {
+      background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+      border-radius: 15px;
       padding: 20px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 3px solid transparent;
+    }
+
+    .zodiac-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      border-color: rgba(255,255,255,0.3);
+    }
+
+    .zodiac-card.selected {
+      border-color: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+
+    .zodiac-symbol {
+      font-size: 3rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .zodiac-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .zodiac-dates {
+      font-size: 0.8rem;
+      color: #34495e;
+      font-weight: 600;
+    }
+
+    /* Warna setiap zodiak */
+    .aries { --card-color-1: #ff6b6b; --card-color-2: #ffa500; }
+    .taurus { --card-color-1: #4ecdc4; --card-color-2: #44a08d; }
+    .gemini { --card-color-1: #45b7d1; --card-color-2: #96c93d; }
+    .cancer { --card-color-1: #f093fb; --card-color-2: #f5576c; }
+    .leo { --card-color-1: #ffd700; --card-color-2: #ffb347; }
+    .virgo { --card-color-1: #c7a17a; --card-color-2: #f4d03f; }
+    .libra { --card-color-1: #ff9a9e; --card-color-2: #fecfef; }
+    .scorpio { --card-color-1: #667eea; --card-color-2: #764ba2; }
+    .sagittarius { --card-color-1: #f093fb; --card-color-2: #f5576c; }
+    .capricornus { --card-color-1: #4facfe; --card-color-2: #00f2fe; }
+    .aquarius { --card-color-1: #43e97b; --card-color-2: #38f9d7; }
+    .pisces { --card-color-1: #fa709a; --card-color-2: #fee140; }
+
+    .input-section {
+      background: rgba(255,255,255,0.1);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(10px);
+    }
+
+    .input-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .input-group input, .input-group button {
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 1rem;
+      border: none;
+    }
+
+    .input-group input {
+      width: 150px;
+    }
+
+    .input-group button {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .result {
+      background: white;
+      padding: 20px;
+      color: #333;
+      text-align: center;
+      border-radius: 15px;
+      margin-top: 25px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 30px;
     }
 
     .colab-link {
@@ -74,60 +189,61 @@ input, button {
       background-color: #0f5ec7;
     }
 
-    h1 {
-      text-align: center;
-      color: #2d3e50;
-    }
+    @media (max-width: 768px) {
+      .zodiac-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
 
-    p {
-      text-align: center;
-      font-size: 1.2em;
-      color: #666;
-    }
+      .input-group {
+        flex-direction: column;
+        align-items: center;
+      }
 
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 8px;
+      .input-group input {
+        width: 100%;
+        max-width: 200px;
+      }
     }
   </style>
 </head>
 
 <body>
- 
+
   <header>
     <nav>
-    <ul>
-    <a href="index.html">Home</a>
-    <a href="product.html">Design Product</a>
-    <a href="design product.html">Prodct</a>
-     </ul>
-  </nav>
-    </header>
-    <h1>Tebak zodiak NYMY</h1>
-    <p>Yuk kita coba cari tau sifat zodiak kamu! READY??!!</p>
+      <a href="index.html">Home</a>
+      <a href="product.html">Design Product</a>
+      <a href="design product.html">Prodct</a>
+    </nav>
+    <h1>Tebak Zodiak NYMY</h1>
+    <p>Yuk kita coba cari tahu sifat zodiak kamu! READY??!!</p>
+  </header>
 
   <div class="container">
-    <h2 style="text-align: center;">Tebak zodiak</h2>
-    <p>Berikut adalah aplikasi tebak zodiak buatan NYMY:</p>
-    
-   
-    <iframe src="https://zodiacbytes1-nymy.hf.space" allow="fullscreen"></iframe>
+    <h2 class="title">What's your sign? Explore the zodiac:</h2>
 
-    <!-- Optional fallback link -->
-    <p style="text-align: center; margin-top: 20px;">
-      <a class="colab-link" href="https://zodiacbytes1-nymy.hf.space" target="_blank" rel="noopener noreferrer">
-        🔗 Buka di Tab Baru
-      </a
-        <p style="text-align: center; margin-top: 20px;">
-         <a class="colab-link" href="https://colab.research.google.com/drive/1LF66Vhfbj2sKCaWtX5ep_UaUuPrec3kW?usp=sharing" target="_blank" rel="noopener noreferrer">
-        🔗 Buka di Google Colab
-      </a>
-    </p>
-  </div>
+    <div class="zodiac-grid">
+      <!-- Isi zodiak cards sama seperti sebelumnya -->
+      <!-- Contoh -->
+      <div class="zodiac-card aries" data-sign="Aries">
+        <div class="zodiac-symbol">♈</div>
+        <div class="zodiac-name">Aries</div>
+        <div class="zodiac-dates">March 21–April 19</div>
+      </div>
+      <!-- (Tambahkan 11 zodiak lainnya sesuai kode sebelumnya) -->
+      <!-- ... -->
+    </div>
 
+    <div class="input-section">
+      <div class="input-group">
+        <input type="number" id="day" placeholder="Tanggal Lahir (1-31)" />
+        <input type="number" id="month" placeholder="Bulan Lahir (1-12)" />
+        <button onclick="checkZodiac()">Lihat Zodiak</button>
+      </div>
+    </div>
 
-  
-</body>
-</html>
+    <div class="result" id="result">
+      <p>Masukkan tanggal dan bulan lahir Anda untuk mengetahui zodiak Anda!</p>
+    </div>
+
+    <iframe src="https://zodiacbytes1-nymy.hf.space" allow
